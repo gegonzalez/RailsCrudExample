@@ -1,0 +1,38 @@
+<h1>Products#index</h1>
+
+<div class="well">
+  <%= link_to "Nuevo Producto", new_product_path, class: "btn btn-primary" %>
+</div>
+
+<% if flash[:notice] %>
+  <div class="alert">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+
+
+<table class="table table-bordered table-striped">
+  <thead>
+  <tr>
+    <th>sku</th>
+    <th>nombre</th>
+    <th>precio</th>
+    <th></th>
+  </tr>
+  </thead>
+  <% if @products.size == 0 %>
+    <tr>
+      <td colspan="5">No hay productos</td>
+    </tr>
+  <% else
+        @products.each do |product| %>
+      <tr>
+        <td><%= product.sku %></td>
+        <td><%= product.nombre %></td>
+        <td><%= product.precio %></td>
+        <td><%= link_to "Editar", edit_product_path(product), class: "btn btn-default" %></td>
+        <td><%= button_to "Eliminar", product, method: :delete, data: {confirm: "Esta seguro #{product.nombre} ??"}, class: "btn btn-danger" %></td>
+      </tr>
+    <% end %>
+  <% end %>
+</table>
